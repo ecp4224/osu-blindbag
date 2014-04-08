@@ -44,6 +44,39 @@ function canOpen() {
 	return true;
 }
 
+function fetchBeatmaps() {
+	include 'config.php';
+	include 'beatmap.php';
+	
+	$time = time();
+	$time -= rand(12, 24) * 2419200; 
+	
+	$timestr = date("Y-m-d H:i:s", $time);
+	
+	$url = 'https://osu.ppy.sh/api/get_beatmaps';
+	$data = array('k' => $conf['osu_api-key'], 'since' => $timestr);
+
+	$options = array(
+		'http' => array(
+			'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+			'method'  => 'POST',
+			'content' => http_build_query($data),
+		),
+	);
+	$context  = stream_context_create($options);
+	$result = file_get_contents($url, false, $context);
+	
+	$maps = json_decode($result, true);
+
+	$maparray = array();
+	foreach ($maps as $map) {
+		$beatmap = new Beatmap($map);
+		$maparray[] = $beatmap;
+	}
+	
+	return $maparray;
+}
+
 $request = $_GET['action'];
 header('Access-Control-Allow-Origin: *'); //Allow cross domain access
 
@@ -55,7 +88,13 @@ if ($request == "canOpen") { //Can the current user?
 else if ($request == "open") {
 	if (!canOpen()) echo "failed";
 	else {
-		echo "temp";
+		$maps = fetchBeatmaps();
+		$selected = rand(0, count($maps) - 1);
+		$array = array(
+			"selected" => $selected,
+			"maps" => $maps,
+		);
+		echo json_encode($array);
 	}
 }
 
