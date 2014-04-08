@@ -1,5 +1,6 @@
 <html>
 	<head>
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/reveal.css" />
 		<link rel="stylesheet" type="text/css" href="css/index.css" />
 		
@@ -16,17 +17,42 @@
 		</div>
 		<div id="usernameAsk" class="reveal-modal">
 			<h1>What's your osu! username?</h1>
-			<input type="text" name="username" style="width: 36%; font-family: Oxygen; font-size:16px"><br>
-			<input type="submit" value="Proceed" id="username_button">
+			<form action="">
+				<input type="text" name="username" id="username" style="width: 36%; font-family: Oxygen; font-size:16px" required><br>
+				<input type="submit" value="Proceed" id="username_button">
+			</form>
+		</div>
+		<div id="comebackLater" class="reveal-modal" style="width: 555px">
+			<h1>You already got a beatmap this week!</h1>
+			<p style="color: #000">Try coming back in a week's time</p>
 		</div>
 		<div class="content">
 			<img src="img/osulogo.png" class="osul" />
 			<div class="song_selector">
 				<h1>Your song for this week is...</h1>
 				<div class="wheel" id="wheel_link">
-					<a href="#">Click here to spin!</a>
+					<a href="#" id="lwheel">Click here to spin!</a>
 				</div>
 			</div>
+			<ul class="buttons">
+				<li>
+					<button type="button" id="download" class="btn btn-default btn-lg btn-custom">Download<span class="glyphicon glyphicon-download" style="margin-left: 6px;"></span></button>
+				</li>
+				<li>
+					<button type="button" id="preview" class="btn btn-default btn-lg btn-custom2">Preview</button>
+				</li>
+				
+			</ul>
 		</div>
+		
+		<!--taken from http://osu.ppy.sh -->
+		<div style="float:right;" id="flashpreview">
+			<object class="playerpreview" id="myFlash" type="application/x-shockwave-flash" data="http://osu.ppy.sh/images/mp3.swf" width="1" height="1">
+				<param name="movie" value="http://osu.ppy.sh/images/mp3.swf">				
+				<param name="AllowScriptAccess" value="always">				
+				<param name="FlashVars" value="listener=myListener&amp;interval=500">			
+			</object>		
+		</div>
+		<!-- taken from http://osu.ppy.sh -->
 	</body>
 </html>
