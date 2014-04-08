@@ -1,0 +1,25 @@
+body {
+	font-family: 'Oxygen', sans-serif;
+	margin:0;
+	padding:0;
+	color:#1d1d1d;
+	text-align: center;
+	background-color: #eff4ff;
+}
+
+#pointImg {
+	display: block;
+	position: absolute;
+	left: 50%;
+	bottom: 0px;
+	margin-left: -196.5px;
+}
+
+#header1 {
+	margin-top:60px;
+	font-weight: 300;
+}
+
+#header2 {
+	font-weight: 100;
+}
