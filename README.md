@@ -1,4 +1,4 @@
-osu-blindbag
+osu! Blind Bag
 ============
 
 A website that gives you a random beatmap each week
