@@ -14,4 +14,6 @@ $conf['mysql_pass'] = "";
 $conf['blindbag_days'] = 6;
 $conf['blindbag_cache-songs'] = false;
 
+//osu! API settings
+$conf['osu_api-key'] = "";
 ?>
