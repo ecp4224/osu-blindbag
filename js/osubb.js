@@ -1,17 +1,10 @@
 function askForUsername() {
-	$("#usernameAsk").reveal({
-		animation: 'fade',
-		animationspeed: 444,
-		closeonbackgroundclick: false,
-	});
+	$('#usernameAsk').modal('show');
 }
 
 function shrekThem() {
-	$("#comebackLater").reveal({
-		animation: 'fade',
-		animationspeed: 444,
-		closeonbackgroundclick: false,
-	});
+	clicked = true; //Prevent link click if they somehow get out
+	$("#comebackLater").modal('show');
 }
 
 var username;

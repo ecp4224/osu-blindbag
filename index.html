@@ -1,11 +1,10 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="css/reveal.css" />
 		<link rel="stylesheet" type="text/css" href="css/index.css" />
 		
 		<script src="js/jquery.min.js" type="text/javascript"></script>
-		<script src="js/jquery.reveal.js" type="text/javascript"></script>
+		<script src="js/bootstrap.min.js" type="text/javascript"></script>
 		<script src="js/osubb.js" type="text/javascript"></script>
 		
 		<link href="http://fonts.googleapis.com/css?family=Oxygen:400,300,700" rel="stylesheet" type="text/css">
@@ -15,16 +14,32 @@
 		<div class="github" id="github_div">
 			<a href="https://github.com/hypereddie/osu-blindbag"><img src="img/github.png"></a>
 		</div>
-		<div id="usernameAsk" class="reveal-modal">
-			<h1>What's your osu! username?</h1>
-			<form action="">
-				<input type="text" name="username" id="username" style="width: 36%; font-family: Oxygen; font-size:16px" required><br>
-				<input type="submit" value="Proceed" id="username_button">
-			</form>
+		<div id="usernameAsk" class="modal" style="color: #1d1d1d; text-align: center" data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1>What's your osu! username?</h1>
+					</div>
+					<div class="modal-body">
+						<form action="">
+							<input type="text" name="username" id="username" style="width: 36%; font-family: Oxygen; font-size:16px" required><br>
+							<input type="submit" value="Proceed" id="username_button" style="margin-top: 18px; margin-bottom: -20px;">
+						</form>
+					</div>
+				</div>
+    		</div>
 		</div>
-		<div id="comebackLater" class="reveal-modal" style="width: 555px">
-			<h1>You already got a beatmap this week!</h1>
-			<p style="color: #000">Try coming back in a week's time</p>
+		<div id="comebackLater" class="modal" style="color: #1d1d1d; text-align: center" data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1>You already got a beatmap this week!</h1>
+					</div>
+					<div class="modal-body">
+						<p style="color: #000">Try coming back in a week.</p>
+					</div>
+				</div>
+    		</div>
 		</div>
 		<div class="content">
 			<img src="img/osulogo.png" class="osul" />
