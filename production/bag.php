@@ -77,6 +77,68 @@ function fetchBeatmaps() {
 	return $maparray;
 }
 
+function saveUser($bid) {
+	$ip = $_SERVER['REMOTE_ADDR'];
+	$user = $_GET['user'];
+	
+	$conn = connectMySQL();
+	$conn->store_result();
+	$stmt = $conn->prepare('SELECT COUNT(*) FROM players WHERE ip = ? OR username = ?');
+	if (!stmt) {
+		printf("Error: %s\n", $conn->error);
+		exit();
+	}
+	$stmt->bind_param('ss', $ip, $user);
+	$stmt->execute();
+	$num = 0;
+	$use_update = false;
+	$stmt->bind_result($num);
+	while ($stmt->fetch()) {
+		if ($num > 0) {
+			$use_update = true;
+			break;
+		}
+	}
+	$stmt->close();
+	
+	if ($use_update) {
+		$update = $conn->prepare('UPDATE players SET bId = ?, lastOpen = ? WHERE ip = ? OR username = ?');
+		if (!$update) {
+			printf("Error: %s\n", $conn->error);
+			exit();
+		}
+		$r = $update->bind_param('ssss', $bid, time(), $ip, $user);
+		if (!$r) {
+			printf("Error: %s\n", $update->error);
+			exit();
+		}
+		$r = $update->execute();
+		if (!$r) {
+			printf("Error: %s\n", $update->error);
+			exit();
+		}
+		return;
+	}
+	
+
+	$update = $conn->prepare('INSERT INTO players (username, ip, lastOpen, bId) VALUES (?, ?, ?, ?)');
+	if (!$update) {
+		printf("Error: %s\n", $conn->error);
+		exit();
+	}
+	$r = $update->bind_param('ssss', $user, $ip, time(), $bid);
+	if (!$r) {
+		printf("Error: %s\n%s", $update->error);
+		exit();
+	}
+	$r = $update->execute();
+	if (!$r) {
+		printf("Error: %s\n", $update->error);
+		exit();
+	}
+	return;
+}
+
 $request = $_GET['action'];
 header('Access-Control-Allow-Origin: *'); //Allow cross domain access
 
@@ -94,6 +156,7 @@ else if ($request == "open") {
 			"selected" => $selected,
 			"maps" => $maps,
 		);
+		saveUser($maps[$selected]->beatmapset_id);
 		echo json_encode($array);
 	}
 }
